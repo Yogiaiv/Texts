@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Text Writer</title>
+<style>
+body {font-family:sans-serif;margin:40px;}
+textarea {width:100%;height:70vh;font-size:16px;}
+button {font-size:18px;padding:10px 20px;margin-top:10px;}
+</style>
+</head>
+<body>
+
+<h2>Text Transfer</h2>
+
+<textarea id="text"></textarea><br>
+<button onclick="save()">Save</button>
+
+<script>
+
+const token = "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";
+const owner = Yogiaiv";
+const repo = "Texts";
+const path = "text.txt";
+
+async function save(){
+
+let content = document.getElementById("text").value;
+
+let encoded = btoa(unescape(encodeURIComponent(content)));
+
+let res = await fetch(
+"https://api.github.com/repos/"+owner+"/"+repo+"/contents/"+path
+);
+
+let data = await res.json();
+
+let sha = data.sha;
+
+await fetch(
+"https://api.github.com/repos/"+owner+"/"+repo+"/contents/"+path,
+{
+method:"PUT",
+headers:{
+"Authorization":"token "+token,
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:"update text",
+content:encoded,
+sha:sha
+})
+});
+
+alert("saved");
+
+}
+
+</script>
+
+</body>
+</html>
