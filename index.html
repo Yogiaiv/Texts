@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Text Transfer</title>
+<style>
+body { font-family: sans-serif; margin:40px; }
+textarea { width:100%; height:80vh; font-size:16px; }
+</style>
+</head>
+<body>
+
+<h2>Text Transfer</h2>
+
+<textarea id="text"></textarea>
+
+<script>
+const box = document.getElementById("text");
+
+box.value = localStorage.getItem("text") || "";
+
+box.addEventListener("input", () => {
+localStorage.setItem("text", box.value);
+});
+</script>
+
+</body>
+</html>
